@@ -1,6 +1,8 @@
+# BoB9 #
+## BoB9 is a turn based card game between 2 players developed in Python 2.7.12 ##
+
 'BoB9' is the Alias to 'Black or Blue 9' which is the game's name.
 
-BoB9 is a turn based card game between 2 players developed in Python 2.7.12
 
 The game rules and behaviors are followed below:
 
