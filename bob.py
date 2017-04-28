@@ -54,7 +54,7 @@ class Bob9:
         self.score ='TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
         self.game_bar = "Turno:%s-9set: %s-9Placar:%s" % (self.turn, self.set, self.score)
 
-
+        return
     #
     #funções de criação do jogo
     #
@@ -64,6 +64,7 @@ class Bob9:
     def score_update(self):
         self.score ='TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
         self.game_bar = "Turno:%s de 9set: %s de 9Placar:%s" % (self.turn, self.set, self.score)
+        return
 
 
     #Cria Mão de cartas inicial para jogador
@@ -141,11 +142,9 @@ class Bob9:
         for i in range (1,len(hand)):
             cards_to_show.append ( '%d %s' % (hand[i][1],hand[i][2]) )
 
-
         show = '%s cards:%s' % (hand[0],cards_to_show)
         print show.center(150)
         return cards_to_show
-
 
     #Jogador escolhe uma card a jogar
 
@@ -162,13 +161,16 @@ class Bob9:
 
         while card_position not in range(1,len(hand)):
             card_position = int(raw_input(('Invalid position! Choose your card by your position[%d - %d] \n' % (1,len(hand)-1)).center(150) ))
+
         return hand[card_position]
 
 
     #Atualiza os 4 slots do board, passando a card retirada do stack e cards dos jogadores
 
     def put_cards_on_board (self,taken_from_stack,p1_card, p2_card):
-        self.board = [(self.P1,p1_card),('BLACK',taken_from_stack),('BLUE',taken_from_stack),(self.P2,p2_card)]
+        self.board = (
+            [(self.P1,p1_card),('BLACK',taken_from_stack),('BLUE',taken_from_stack),(self.P2,p2_card)]
+        )
         return self.board
 
 
@@ -210,7 +212,6 @@ class Bob9:
 
         taken_from_stack = self.stack.pop()
 
-
         #Informações do estado atual do jogo
         print 'BLACK or BLUE 9'.center(150)
         print self.game_bar.center(150)
@@ -225,26 +226,27 @@ class Bob9:
         print "4-Ver Stack Trash".center(150)
 
         p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+        while not p1_option.isdigit() or int(p1_option) not in list(range(1,5)):
+            p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
-        while (True):
+        while not int(p1_option)== 1:
             if int(p1_option) == 4:
                 print ('%s ' % self.trash).center(150)
-                p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
             if int(p1_option) == 3:
                 print ('%s ' % self.p2_trash).center(150)
-                p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
             if int(p1_option) == 2:
                 print ('%s ' % self.p1_trash).center(150)
-                p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
-            #Fase de escolhas de cards dos jogadores
-            if int(p1_option) == 1:
-                print ('%s CARD SELECTION ' % self.P1).center(150)
-                p1_card = self.choose_card_from_hand(self.P1)
-                self.p1_hand.remove(p1_card)
-                self.p1_hand[0] = self.p1_hand[0]-1
-                self.p1_trash.append(p1_card)
-                break
+            p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+
+        #Fase de escolhas de cards dos jogadores
+        else:
+            print ('%s CARD SELECTION ' % self.P1).center(150)
+            p1_card = self.choose_card_from_hand(self.P1)
+            self.p1_hand.remove(p1_card)
+            self.p1_hand[0] = self.p1_hand[0]-1
+            self.p1_trash.append(p1_card)
+
         os.system('cls')
 
         #Informações do estado atual do jogo
@@ -261,27 +263,28 @@ class Bob9:
         print "4-Ver Stack Trash".center(150)
 
         p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+        while not p2_option.isdigit() or orint(p2_option) not in list(range(1,5)):
+            p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
-        while (True):
-            if int(p2_option) == 4:
+        while not int(p2_option)== 1:
+            if int(p2_option)== 4:
                 print ('%s ' % self.trash).center(150)
-                p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
             if int(p2_option) == 3:
                 print ('%s ' % self.p1_trash).center(150)
-                p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
             if int(p2_option) == 2:
                 print ('%s ' % self.p2_trash).center(150)
-                p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
-            #Fase de escolhas de cards dos jogadores
-            if int(p2_option) == 1:
-                print ('%s CARD SELECTION ' % self.P2).center(150)
-                p2_card = self.choose_card_from_hand(self.P2)
-                self.p2_hand.remove(p2_card)
-                self.p2_hand[0] = self.p2_hand[0]-1
-                self.p2_trash.append(p2_card)
-                break
+            p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
+        #Fase de escolhas de cards dos jogadores
+        else:
+            print ('%s CARD SELECTION ' % self.P2).center(150)
+            p2_card = self.choose_card_from_hand(self.P2)
+            self.p2_hand.remove(p2_card)
+            self.p2_hand[0] = self.p2_hand[0]-1
+            self.p2_trash.append(p2_card)
+
+        os.system('cls')
         #Re-exibe o board com as escolhas dos jogadores
 
         print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, p1_card, p2_card)).center(150)
@@ -381,13 +384,13 @@ class Bob9:
 
         stop_point = raw_input(("Pressione qualquer tecla para seguir para o proximo turno>").center(150))
         os.system("cls")
-        return __game_over__
+        return self.__game_over__
 
 
 def main():
     game = Bob9()
     game.onStart()
-    while game.__game_over__ != True:
+    while not game.__game_over__: #!= True:
         game.onUpdate()
 
 if __name__ == '__main__':
