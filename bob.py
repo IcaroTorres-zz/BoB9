@@ -4,32 +4,18 @@ from random import randint
 import os
 
 class Bob9:
-
-    def __init__(self):
-
-
-
-        print 'BLACK or BLUE 9'.center(150)
-        print 'Game design and script by Icaro Torres: icaro.stuart@gmail.com'.center(150)
-        print 'Github https://github.com/IcaroTorres/bob9'.center(150)
-
-
-
+    def __init__(self,P1,P2):
         #Parametros iniciais inseridos na invocação deste script via prompt
-        self.P1 = raw_input(('What is your name Player 1?\n').center(150))
-        self.P2 = raw_input(('What is your name Player 2?\n').center(150))
-        os.system('cls')
-
+        self.P1 = P1
+        self.P2 = P2
 
         #Constantes preliminares para geração de ambiente
-
         self.COLORS = ['BLACK','BLUE']
         self.START_COLOR = self.COLORS[randint(0,1)]
 
         #
         #Variáveis iniciais vazias
         #
-
         self.__game_over__ = False
         self.__set_over__ = False
         self.__turn_over__ = False
@@ -46,7 +32,6 @@ class Bob9:
 
 
         #Pontuação inicial. Para exibir informações bastar dar print em 'game_bar' a qualquer momento
-
         self.p1_wins  = 0
         self.p2_wins  = 0
         self.p1_sets = 0
@@ -60,7 +45,6 @@ class Bob9:
     #
 
     #Atualiza Placar
-
     def score_update(self):
         self.score ='TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
         self.game_bar = "Turno:%s de 9set: %s de 9Placar:%s" % (self.turn, self.set, self.score)
@@ -68,7 +52,6 @@ class Bob9:
 
 
     #Cria Mão de cartas inicial para jogador
-
     def hand_build(self,color):
         hand_built = []
         used_value = []
@@ -95,7 +78,6 @@ class Bob9:
 
 
     #Cria stack a partir de uma lista de valores
-
     def create_stack(self):
         new_stack = []
         used_value = []
@@ -113,14 +95,11 @@ class Bob9:
 
 
     #Prepara o jogo em seu estado de inicio/re-inicio do jogo
-
     def onStart(self):
         #Inicialização do stack
-
         self.stack = self.create_stack()
 
         #Mãos iniciais para os jogadores
-
         self.p1_hand = self.hand_build(self.START_COLOR)
         self.p2_hand = self.hand_build(self.START_COLOR)
         self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
@@ -131,7 +110,6 @@ class Bob9:
         return True
 
     #Exibe mão de um jogador
-
     def show_hand(self,player):
         cards_to_show = []
         if player==self.P1:
@@ -147,7 +125,6 @@ class Bob9:
         return cards_to_show
 
     #Jogador escolhe uma card a jogar
-
     def choose_card_from_hand(self,player):
         hand = []
         if player==self.P1:
@@ -164,9 +141,7 @@ class Bob9:
 
         return hand[card_position]
 
-
     #Atualiza os 4 slots do board, passando a card retirada do stack e cards dos jogadores
-
     def put_cards_on_board (self,taken_from_stack,p1_card, p2_card):
         self.board = (
             [(self.P1,p1_card),('BLACK',taken_from_stack),('BLUE',taken_from_stack),(self.P2,p2_card)]
@@ -177,7 +152,6 @@ class Bob9:
     #Incrementa a mão do vencedor da set com as sobras do stack
 
     #Não descartar o stack ate gerar uma nova mão para cada jogador
-
     def new_set_winner_hand(self,player):
         if player==self.P1:
             hand = self.p1_hand
@@ -203,20 +177,17 @@ class Bob9:
 
         return new_hand
 
-
     #Atualiza o jogo
     def onUpdate(self):
         self.__turn_over__ = False
 
         #Card retirada do topo do Stack e posta em duas cores no board
-
         taken_from_stack = self.stack.pop()
 
         #Informações do estado atual do jogo
         print 'BLACK or BLUE 9'.center(150)
         print self.game_bar.center(150)
         print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, '_', '_')).center(150)
-
 
         #Opções do jogador 1
         print (self.P1+' OPTION SELECTION').center(150)
@@ -254,7 +225,6 @@ class Bob9:
         print self.game_bar.center(150)
         print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, '_', '_')).center(150)
 
-
         #Opções do jogador 2
         print (self.P2+ ' OPTION SELECTION').center(150)
         print "1-Fazer Jogada".center(150)
@@ -285,14 +255,13 @@ class Bob9:
             self.p2_trash.append(p2_card)
 
         os.system('cls')
-        #Re-exibe o board com as escolhas dos jogadores
 
+        #Re-exibe o board com as escolhas dos jogadores
         print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, p1_card, p2_card)).center(150)
 
         self.trash.append(taken_from_stack)
 
         #Calcula pontuação para a jogada de cada jogador. Vence a menor pontuação
-
         #P1
         if p1_card[2]=='BLACK':
             p1_point = 20 - (p1_card[1] + taken_from_stack) #20 - (jogador + stack)
@@ -329,7 +298,6 @@ class Bob9:
             self.p1_sets = self.p1_sets + 1
 
             #Mãos iniciais para os jogadores
-
             self.p1_hand = self.hand_build(self.START_COLOR)
             self.p2_hand = self.hand_build(self.START_COLOR)
             self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
@@ -339,7 +307,6 @@ class Bob9:
             self.p1_hand = self.new_set_winner_hand(self.P1)
 
             #Inicialização do stack
-
             self.stack = self.create_stack()
             self.p1_wins = 0
             self.p2_wins = 0
@@ -350,7 +317,6 @@ class Bob9:
             self.p2_sets = self.p2_sets + 1
 
             #Mãos iniciais para os jogadores
-
             self.p1_hand = self.hand_build(self.START_COLOR)
             self.p2_hand = self.hand_build(self.START_COLOR)
             self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
@@ -360,12 +326,10 @@ class Bob9:
             self.p2_hand = self.new_set_winner_hand(self.P2)
 
             #Inicialização do stack
-
             self.stack = self.create_stack()
             self.p1_wins = 0
             self.p2_wins = 0
             self.__set_over__ = True
-
 
         if self.__set_over__:
             self.set = self.set + 1
@@ -386,9 +350,16 @@ class Bob9:
         os.system("cls")
         return self.__game_over__
 
-
 def main():
-    game = Bob9()
+    print 'BLACK or BLUE 9'.center(150)
+    print 'Game design and script by Icaro Torres: icaro.stuart@gmail.com'.center(150)
+    print 'Github https://github.com/IcaroTorres/bob9'.center(150)
+
+    P1=raw_input(('What is your name Player 1?\n').center(150))
+    P2=raw_input(('What is your name Player 2?\n').center(150))
+    os.system('cls')
+
+    game = Bob9(P1,P2)
     game.onStart()
     while not game.__game_over__: #!= True:
         game.onUpdate()
