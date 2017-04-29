@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding                                                                     : utf-8 -*-
 from sys import argv
 from random import randint
 import os
@@ -10,34 +10,34 @@ class Bob9:
         self.P2 = P2
 
         #Constantes preliminares para geração de ambiente
-        self.COLORS = ['BLACK','BLUE']
+        self.COLORS      = ['BLACK','BLUE']LUE']
         self.START_COLOR = self.COLORS[randint(0,1)]
 
         #
         #Variáveis iniciais vazias
         #
         self.__game_over__ = False
-        self.__set_over__ = False
+        self.__set_over__  = False
         self.__turn_over__ = False
-        self.turn = 1
-        self.set = 1
-        self.board = [(self.P1,'  '),('BLACK','  '), ('BLUE','  '),(self.P2,'  ')]
-        self.stack   = []
-        self.trash   = []
-        self.p1_hand = []
-        self.p2_hand = []
-        self.hands   = {}
-        self.p1_trash = []
-        self.p2_trash = []
+        self.turn          = 1
+        self.set           = 1
+        self.board         = [(self.P1,' '),('BLACK',' '), ('BLUE',' '),(self.P2,' ')]
+        self.stack         = []
+        self.trash         = []
+        self.p1_hand       = []
+        self.p2_hand       = []
+        self.hands         = {}
+        self.p1_trash      = []
+        self.p2_trash      = []
 
 
         #Pontuação inicial. Para exibir informações bastar dar print em 'game_bar' a qualquer momento
-        self.p1_wins  = 0
+        self.p1_wins  = 00
         self.p2_wins  = 0
-        self.p1_sets = 0
-        self.p2_sets = 0
-        self.score ='TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
-        self.game_bar = "Turno:%s-9set: %s-9Placar:%s" % (self.turn, self.set, self.score)
+        self.p1_sets  = 0
+        self.p2_sets  = 0
+        self.score    = 'TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
+        self.game_bar = "Turno :%s-9set: %s-9Placar:%s" % (self.turn, self.set, self.score)
 
         return
     #
@@ -46,8 +46,8 @@ class Bob9:
 
     #Atualiza Placar
     def score_update(self):
-        self.score ='TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2)
-        self.game_bar = "Turno:%s de 9set: %s de 9Placar:%s" % (self.turn, self.set, self.score)
+        self.score    = 'TURNOS[%s %dX%d %s]sets[%s %dX%d %s]' %(self.P1,self.p1_wins,self.p2_wins,self.P2,self.P1,self.p1_sets,self.p2_sets,self.P2).P2)
+        self.game_bar = "Turno :%s de 9set: %s de 9Placar:%s" % (self.turn, self.set, self.score)
         return
 
 
@@ -79,7 +79,7 @@ class Bob9:
 
     #Cria stack a partir de uma lista de valores
     def create_stack(self):
-        new_stack = []
+        new_stack  = []
         used_value = []
 
         for i in range (0,9):
@@ -100,10 +100,10 @@ class Bob9:
         self.stack = self.create_stack()
 
         #Mãos iniciais para os jogadores
-        self.p1_hand = self.hand_build(self.START_COLOR)
-        self.p2_hand = self.hand_build(self.START_COLOR)
-        self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
-        self.trash = []
+        self.p1_hand  = self.hand_build(self.START_COLOR))
+        self.p2_hand  = self.hand_build(self.START_COLOR)
+        self.hands    = {self.P1: self.p1_hand, self.P2: self.p2_hand}
+        self.trash    = []
         self.p1_trash = []
         self.p1_trash = []
 
@@ -120,24 +120,25 @@ class Bob9:
         for i in range (1,len(hand)):
             cards_to_show.append ( '%d %s' % (hand[i][1],hand[i][2]) )
 
-        show = '%s cards:%s' % (hand[0],cards_to_show)
+        show = '%s cards: %s' % (hand[0],cards_to_show)
         print show.center(150)
         return cards_to_show
 
     #Jogador escolhe uma card a jogar
     def choose_card_from_hand(self,player):
         hand = []
-        if player==self.P1:
-            hand = self.p1_hand
-        elif player==self.P2:
-            hand = self.p2_hand
+        if player   = = self.P1:f.P1:
+            hand    = self.p1_hand
+        elif player = = self.P2:
+            hand    = self.p2_hand
 
         self.show_hand(player)
 
-        card_position = int(raw_input(('Choose your card by your position[%d - %d]\n' % (1,len(hand)-1) ).center(150) ))
+        message       = 'Choose your card by position[%d - %d]\n' % (1,len(hand)-1)nd)-1)
+        card_position = int( raw_input( message.center(150)) )
 
         while card_position not in range(1,len(hand)):
-            card_position = int(raw_input(('Invalid position! Choose your card by your position[%d - %d] \n' % (1,len(hand)-1)).center(150) ))
+            card_position = int( raw_input('Invalid position!'+message % (1,len(hand)-1)) )
 
         return hand[card_position]
 
@@ -158,9 +159,8 @@ class Bob9:
         else:
             hand = self.p2_hand
 
-        if len(self.stack)>0:
-
-            stack_card_color = ''
+        if len(self.stack)>0
+            stack_card_color  = ''
             last_card_in_hand = hand[len(hand)-1]
 
             if last_card_in_hand[2] == 'BLACK':
@@ -171,14 +171,14 @@ class Bob9:
             new_hand = hand
             for card in self.stack:
                 new_hand.append(('card %d' % (new_hand[0]+1),card,stack_card_color))
-                new_hand[0] = new_hand[0]+1
+                new_hand[0] += 1
         else:
             print "Stack vazio. Mão do vencedor continua a mesma.".center(150)
 
         return new_hand
 
     #Atualiza o jogo
-    def onUpdate(self):
+    def onUpdate(self)                                                           :
         self.__turn_over__ = False
 
         #Card retirada do topo do Stack e posta em duas cores no board
@@ -187,16 +187,18 @@ class Bob9:
         #Informações do estado atual do jogo
         print 'BLACK or BLUE 9'.center(150)
         print self.game_bar.center(150)
-        print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, '_', '_')).center(150)
+        print 'BOARD %s'.center(150) % self.put_cards_on_board(taken_from_stack, '_', '_')
 
         #Opções do jogador 1
-        print (self.P1+' OPTION SELECTION').center(150)
+        print self.P1+' OPTION SELECTION'.center(150)
         print "1-Fazer Jogada".center(150)
         print "2-Ver seu Trash".center(150)
         print "3-Ver Trash adversario".center(150)
         print "4-Ver Stack Trash".center(150)
 
-        p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+        option_message = "O que deseja fazer?(1-4)\n"
+
+        p1_option      = raw_input(option_message.center(150))
         while not p1_option.isdigit() or int(p1_option) not in list(range(1,5)):
             p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
 
@@ -208,7 +210,7 @@ class Bob9:
             if int(p1_option) == 2:
                 print ('%s ' % self.p1_trash).center(150)
 
-            p1_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+            p1_option = raw_input(option_message.center(150))
 
         #Fase de escolhas de cards dos jogadores
         else:
@@ -223,18 +225,18 @@ class Bob9:
         #Informações do estado atual do jogo
         print 'BLACK or BLUE 9'.center(150)
         print self.game_bar.center(150)
-        print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, '_', '_')).center(150)
+        print 'BOARD %s'.center(150) % self.put_cards_on_board(taken_from_stack, '_', '_')
 
         #Opções do jogador 2
-        print (self.P2+ ' OPTION SELECTION').center(150)
+        print self.P2 + ' OPTION SELECTION'.center(150)
         print "1-Fazer Jogada".center(150)
         print "2-Ver seu Trash".center(150)
         print "3-Ver Trash adversario".center(150)
         print "4-Ver Stack Trash".center(150)
 
-        p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+        p2_option = raw_input(option_message.center(150))
         while not p2_option.isdigit() or orint(p2_option) not in list(range(1,5)):
-            p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+            p2_option = raw_input(option_message.center(150))
 
         while not int(p2_option)== 1:
             if int(p2_option)== 4:
@@ -244,11 +246,11 @@ class Bob9:
             if int(p2_option) == 2:
                 print ('%s ' % self.p2_trash).center(150)
 
-            p2_option = raw_input(("O que deseja fazer?(1-4)\n").center(150))
+            p2_option = raw_input(option_message.center(150))
 
         #Fase de escolhas de cards dos jogadores
         else:
-            print ('%s CARD SELECTION ' % self.P2).center(150)
+            print '%s CARD SELECTION '.center(150) % self.P2
             p2_card = self.choose_card_from_hand(self.P2)
             self.p2_hand.remove(p2_card)
             self.p2_hand[0] = self.p2_hand[0]-1
@@ -257,7 +259,7 @@ class Bob9:
         os.system('cls')
 
         #Re-exibe o board com as escolhas dos jogadores
-        print ('BOARD%s'% self.put_cards_on_board(taken_from_stack, p1_card, p2_card)).center(150)
+        print 'BOARD %s'.center(150) % self.put_cards_on_board(taken_from_stack, p1_card, p2_card)
 
         self.trash.append(taken_from_stack)
 
@@ -265,29 +267,29 @@ class Bob9:
         #P1
         if p1_card[2]=='BLACK':
             p1_point = 20 - (p1_card[1] + taken_from_stack) #20 - (jogador + stack)
-        else :
-            p1_point =  0 + (p1_card[1] + taken_from_stack) # 0 + (jogador + stack)
+        else:
+            p1_point = 0 + (p1_card[1] + taken_from_stack) # 0 + (jogador + stack)
 
         #P2
         if p2_card[2]=='BLACK':
             p2_point = 20 - (p2_card[1] + taken_from_stack) #20 - (jogador + stack)
-        else :
-            p2_point =  0 + (p2_card[1] + taken_from_stack) # 0 + (jogador + stack)
+        else:
+            p2_point = 0 + (p2_card[1] + taken_from_stack) # 0 + (jogador + stack)
 
 
         if p1_point == p2_point:
-            self.turn = self.turn + 2
+            self.turn    = self.turn + 2
             self.p1_wins = self.p1_wins + 1
             self.p2_wins = self.p2_wins + 1
             print "Draw. 1 win to each player and um turn skipped.".center(150)
 
         if p1_point < p2_point:
-            self.turn = self.turn + 1
+            self.turn    = self.turn + 1
             self.p1_wins = self.p1_wins + 1
             print self.P1+" Won a turn.".center(150)
 
         if p2_point < p1_point:
-            self.turn = self.turn + 1
+            self.turn    = self.turn + 1
             self.p2_wins = self.p2_wins + 1
             print self.P2+" Won a turn.".center(150)
 
@@ -298,56 +300,57 @@ class Bob9:
             self.p1_sets = self.p1_sets + 1
 
             #Mãos iniciais para os jogadores
-            self.p1_hand = self.hand_build(self.START_COLOR)
-            self.p2_hand = self.hand_build(self.START_COLOR)
-            self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
-            self.trash = []
+            self.p1_hand  = self.hand_build(self.START_COLOR)
+            self.p2_hand  = self.hand_build(self.START_COLOR)
+            self.hands    = {self.P1: self.p1_hand, self.P2: self.p2_hand}
+            self.trash    = []
             self.p1_trash = []
             self.p1_trash = []
-            self.p1_hand = self.new_set_winner_hand(self.P1)
+            self.p1_hand  = self.new_set_winner_hand(self.P1)
 
             #Inicialização do stack
-            self.stack = self.create_stack()
-            self.p1_wins = 0
-            self.p2_wins = 0
+            self.stack        = self.create_stack()
+            self.p1_wins      = 0
+            self.p2_wins      = 0
             self.__set_over__ = True
 
-        if self.p2_wins >= 5  and self.p2_wins > self.p1_wins:
-            print self.P2+" Won a set.".center(150)
+        if self.p1_wins < self.p2_wins >= 5:
+            print self.P2 + " Won a set.".center(150)
             self.p2_sets = self.p2_sets + 1
 
             #Mãos iniciais para os jogadores
-            self.p1_hand = self.hand_build(self.START_COLOR)
-            self.p2_hand = self.hand_build(self.START_COLOR)
-            self.hands = {self.P1: self.p1_hand, self.P2: self.p2_hand}
-            self.trash = []
+            self.p1_hand  = self.hand_build(self.START_COLOR)
+            self.p2_hand  = self.hand_build(self.START_COLOR)
+            self.hands    = {self.P1: self.p1_hand, self.P2: self.p2_hand}
+            self.trash    = []
             self.p1_trash = []
             self.p1_trash = []
-            self.p2_hand = self.new_set_winner_hand(self.P2)
+            self.p2_hand  = self.new_set_winner_hand(self.P2)
 
             #Inicialização do stack
-            self.stack = self.create_stack()
-            self.p1_wins = 0
-            self.p2_wins = 0
+            self.stack        = self.create_stack()
+            self.p1_wins      = 0
+            self.p2_wins      = 0
             self.__set_over__ = True
 
         if self.__set_over__:
-            self.set = self.set + 1
-            self.turn = 1
+            self.set          = self.set + 1
+            self.turn         = 1
             self.__set_over__ = False
 
-        if self.p1_sets >= 5 and self.p1_sets > self.p2_sets:
+        if self.p2_sets < self.p1_sets >= 5:
             print self.P1+" GANHOU A BEST OF 9 DAS BEST OF 9!!!!.".center(150)
             self.__game_over__ = True
 
-        if self.p2_sets >= 5 and self.p2_sets > self.p1_sets:
+        if self.p1_sets < self.p2_sets >= 5:
             print self.P2+" GANHOU A BEST OF 9 DAS BEST OF 9!!!!.".center(150)
             self.__game_over__ = True
 
         self.score_update()
 
-        stop_point = raw_input(("Pressione qualquer tecla para seguir para o proximo turno>").center(150))
+        stop_point = raw_input("Pressione qualquer tecla para seguir para o proximo turno>".center(150))
         os.system("cls")
+
         return self.__game_over__
 
 def main():
